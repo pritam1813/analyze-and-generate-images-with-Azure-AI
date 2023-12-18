@@ -1,15 +1,40 @@
 import { useState } from 'react';
+import { analyzeImage } from '../modules/azure-image-analysis';
 
 function App() {
   const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [results, setResults] = useState(null);
 
-  const handleAnalysis = () => {
+  const handleAnalysis = async () => {
     // Add your image analysis function here
-    console.log('Image analysis for: ', input);
+    setLoading(true);
+    const analysis = await analyzeImage(input);
+    setResults(analysis);
+    setLoading(false);
   };
+
   const handleGeneration = () => {
     // Add your image generation function here
     console.log('Image generation for: ', input);
+  };
+
+  const DisplayResults = () => {
+    if (!results) return null;
+
+    return (
+      <div className='mt-8'>
+        <h2 className='text-2xl font-bold mb-4'>Computer Vision Analysis</h2>
+        <img
+          src={input}
+          alt='Analyzed'
+          className='mb-4 w-full md:w-1/2 lg:w-1/3 object-contain'
+        />
+        <pre className='text-left bg-gray-200 p-4 rounded'>
+          {JSON.stringify(results, null, 2)}
+        </pre>
+      </div>
+    );
   };
 
   return (
@@ -26,8 +51,9 @@ function App() {
         <button
           onClick={handleAnalysis}
           className='px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700'
+          disabled={loading}
         >
-          Analyze Image
+          {loading ? 'Analyzing...' : 'Analyze Image'}
         </button>
         <button
           onClick={handleGeneration}
@@ -36,6 +62,7 @@ function App() {
           Generate Image
         </button>
       </div>
+      <DisplayResults />
     </div>
   );
 }
