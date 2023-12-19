@@ -9,6 +9,9 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "engines": {
+    "node": ">=20.10.0"
+  },
   "dependencies": {
     "@azure/openai": "^1.0.0-beta.8",
     "react": "^18.2.0",
