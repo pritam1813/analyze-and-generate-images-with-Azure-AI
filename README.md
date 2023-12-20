@@ -20,7 +20,7 @@ This is a simple web application that allows users to analyze images using an im
 
 ## Screenshots
 
-![APP Frontend](snaps/snap1.PNG)
+![APP Frontend](/images/snap1.jpg)
 
 ## Hosting
 
