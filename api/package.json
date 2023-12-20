@@ -16,6 +16,9 @@
     "axios": "^1.6.2",
     "dotenv": "^16.3.1"
   },
+  "engines": {
+    "node": ">=18.2.0"
+  },
   "devDependencies": {
     "@types/node": "^18.x",
     "rimraf": "^5.0.0",
