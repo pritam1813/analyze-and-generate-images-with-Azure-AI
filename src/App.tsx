@@ -7,7 +7,7 @@ interface State {
   analyzing: boolean;
   generating: boolean;
   analyzedResult: any;
-  generatedImageUrl: string | undefined;
+  generatedImageData: any;
   buttonHoverCursor: string;
 }
 
@@ -17,7 +17,7 @@ function App() {
     analyzing: false,
     generating: false,
     analyzedResult: null,
-    generatedImageUrl: '',
+    generatedImageData: null,
     buttonHoverCursor: 'cursor-pointer',
   });
 
@@ -25,7 +25,7 @@ function App() {
     setState((prevState) => ({
       ...prevState,
       analyzing: true,
-      generatedImageUrl: '',
+      generatedImageData: '',
       buttonHoverCursor: 'cursor-not-allowed',
     }));
     try {
@@ -53,7 +53,7 @@ function App() {
       const generatedImage = await generateImage(state.input);
       setState((prevState) => ({
         ...prevState,
-        generatedImageUrl: generatedImage,
+        generatedImageData: generatedImage,
         generating: false,
         buttonHoverCursor: 'cursor-pointer',
       }));
@@ -64,7 +64,7 @@ function App() {
   }, [state.input]);
 
   const DisplayResults = () => {
-    if (!state.analyzedResult && !state.generatedImageUrl) return null;
+    if (!state.analyzedResult && !state.generatedImageData) return null;
 
     return (
       <div className='mt-8 flex flex-col items-center justify-center'>
@@ -83,19 +83,22 @@ function App() {
                 {state.analyzedResult.captionResult.text}
               </span>
             </h3>
-            <pre className='text-left bg-gray-200 p-4 rounded'>
+            <pre className='text-left bg-gray-200 p-4 rounded w-full md:w-1/2 lg:w-1/3 overflow-y-auto'>
               {JSON.stringify(state.analyzedResult, null, 2)}
             </pre>
           </>
         )}
-        {state.generatedImageUrl != '' && (
+        {state.generatedImageData != '' && (
           <>
             <h2 className='text-2xl font-bold mb-4'>Generated Image</h2>
             <img
-              src={state.generatedImageUrl}
+              src={state.generatedImageData.data[0].url}
               alt='Generated Image'
               className='mb-4 w-full md:w-1/2 lg:w-1/3 object-contain'
             />
+            <pre className='text-left bg-gray-200 p-4 rounded w-full md:w-1/2 lg:w-1/3 overflow-y-auto'>
+              {JSON.stringify(state.generatedImageData, null, 2)}
+            </pre>
           </>
         )}
       </div>
