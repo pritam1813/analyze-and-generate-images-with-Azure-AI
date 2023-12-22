@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
-import DisplayResult from '../components/DisplayResult';
-import ActionButton from '../components/ActionButton';
+import DisplayResult from './components/DisplayResult';
+import ActionButton from './components/ActionButton';
 import { analyzeImage } from '../modules/azure-image-analysis';
 import { generateImage } from '../modules/azure-image-generation';
 
@@ -80,15 +80,15 @@ function App() {
       <div className='space-x-4'>
         <ActionButton
           onClick={handleAnalysis}
-          buttonProperties={`from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 focus:ring-lime-200 dark:focus:ring-lime-800`}
           isDisabled={state.analyzing}
           text={state.analyzing ? 'Analyzing...' : 'Analyze'}
+          isTeal
         />
         <ActionButton
           onClick={handleGeneration}
-          buttonProperties={`from-red-200 via-red-300 to-yellow-200 group-hover:from-red-200 group-hover:via-red-300 group-hover:to-yellow-200 focus:ring-red-100 dark:focus:ring-red-400`}
           isDisabled={state.generating}
           text={state.generating ? 'Generating...' : 'Generate'}
+          isRed
         />
       </div>
       <DisplayResult
