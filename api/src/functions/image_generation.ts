@@ -1,9 +1,4 @@
-import {
-  app,
-  HttpRequest,
-  HttpResponseInit,
-  InvocationContext,
-} from '@azure/functions';
+import { app, HttpRequest, HttpResponseInit } from '@azure/functions';
 
 import { OpenAIClient, AzureKeyCredential } from '@azure/openai';
 
@@ -18,8 +13,7 @@ interface RequestBody {
 }
 
 export async function image_generation(
-  request: HttpRequest,
-  context: InvocationContext
+  request: HttpRequest
 ): Promise<HttpResponseInit> {
   const bodyContent: RequestBody = await request.json();
   const prompt = bodyContent.prompt;
@@ -33,8 +27,7 @@ export async function image_generation(
       n,
       size,
     });
-    context.log("IMAGE Data: ", imageData);
-    context.log("IMAGE URL", imageData.data[0].url);
+
     return { jsonBody: imageData };
   } catch (error) {
     return {

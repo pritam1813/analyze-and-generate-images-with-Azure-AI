@@ -1,9 +1,4 @@
-import {
-  app,
-  HttpRequest,
-  HttpResponseInit,
-  InvocationContext,
-} from '@azure/functions';
+import { app, HttpRequest, HttpResponseInit } from '@azure/functions';
 
 import axios from 'axios';
 
@@ -24,11 +19,8 @@ interface RequestBody {
 }
 
 export async function image_analysis(
-  request: HttpRequest,
-  context: InvocationContext
+  request: HttpRequest
 ): Promise<HttpResponseInit> {
-  context.log(`Http function processed request for url "${request.url}"`);
-
   const bodyContent: RequestBody = await request.json();
   const imageUrl = bodyContent.url;
 

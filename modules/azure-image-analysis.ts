@@ -10,7 +10,7 @@ export const analyzeImage = async (imageUrl: string) => {
       }
   
       const data = await response.json();
-
+      data.imageUrl = imageUrl;
       return data;
     } catch (error) {
       console.error('Error analyzing image: ', error);
